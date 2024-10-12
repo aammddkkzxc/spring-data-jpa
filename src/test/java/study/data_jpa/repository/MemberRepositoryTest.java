@@ -148,4 +148,19 @@ class MemberRepositoryTest {
         System.out.println(memberDtos);
     }
 
+    @Test
+    public void 컬렉션_파라미터_바인딩() {
+        Member m1 = new Member("AAA", 10);
+        Member m2 = new Member("AAA", 20);
+        Member m3 = new Member("BBB", 30);
+        memberRepository.save(m1);
+        memberRepository.save(m2);
+        memberRepository.save(m3);
+
+        List<String> names = List.of("AAA");
+
+        List<Member> members = memberRepository.findByNames(names);
+        System.out.println(members);
+    }
+
 }
