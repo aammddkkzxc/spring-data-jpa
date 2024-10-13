@@ -223,4 +223,27 @@ class MemberRepositoryTest {
         assertThat(resultCount).isEqualTo(3);
     }
 
+    @Test
+    public void fetchTest() {
+        Team teamA = new Team("teamA");
+        Team teamB = new Team("teamB");
+        teamRepository.save(teamA);
+        teamRepository.save(teamB);
+
+        memberRepository.save(new Member("member1", 10, teamA));
+        memberRepository.save(new Member("member2", 20, teamB));
+
+        List<Member> members1 = memberRepository.findMemberFetchJoin();
+        System.out.println(members1);
+
+        List<Member> members2 = memberRepository.findAll();
+        System.out.println(members2);
+
+        List<Member> members3 = memberRepository.findMemberEntityGraph();
+        System.out.println(members3);
+
+        List<Member> members4 = memberRepository.findByUsername("member1");
+        System.out.println(members4);
+    }
+
 }

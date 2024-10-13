@@ -11,7 +11,7 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@ToString(of = {"id", "username", "age"})
+@ToString(of = {"id", "username", "age", "team"})
 @NamedQuery(
         name = "Member.findByUsername",
         query = "select m from Member m where m.username = :username"
