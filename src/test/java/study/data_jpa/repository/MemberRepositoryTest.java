@@ -296,4 +296,46 @@ class MemberRepositoryTest {
         System.out.println(findMember.getCreatedBy());
         System.out.println(findMember.getLastModifiedBy());
     }
+
+    @Test
+    public void projections() {
+
+        //given
+        Team teamA = new Team("teamA");
+        em.persist(teamA);
+        Member m1 = new Member("m1", 0, teamA);
+        Member m2 = new Member("m2", 0, teamA);
+        em.persist(m1);
+        em.persist(m2);
+        em.flush();
+        em.clear();
+
+        //open projection, close projection
+//        List<UsernameOnly> result = memberRepository.findProjectionsByUsername("m1");
+//
+//        for (UsernameOnly usernameOnly : result) {
+//            System.out.println("usernameOnly: " + usernameOnly);
+//        }
+
+        //클래스로 프로젝션
+//        List<UsernameOnlyDto> result = memberRepository.findProjectionsByUsername("m1");
+//
+//        for (UsernameOnlyDto usernameOnly : result) {
+//            System.out.println("usernameOnly: " + usernameOnly);
+//        }
+
+        //동적으로 프로젝션
+//        List<UsernameOnlyDto> result = memberRepository.findProjectionsByUsername("m1", UsernameOnlyDto.class);
+//
+//        for (UsernameOnlyDto usernameOnly : result) {
+//            System.out.println("usernameOnly: " + usernameOnly);
+//        }
+
+        //동적 + 중첩
+        List<NestedClosedProjections> result = memberRepository.findProjectionsByUsername("m1", NestedClosedProjections.class);
+
+        for (NestedClosedProjections projection : result) {
+            System.out.println("usernameOnly: " + projection);
+        }
+    }
 }
